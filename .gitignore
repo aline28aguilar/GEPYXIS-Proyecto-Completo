@@ -17,7 +17,13 @@ extensions
 .vscode
 npm-debug.log
 /package-log.json
-/media
+/media/*
+!/media/catalog/
+!/media/catalog/**/
+!/media/catalog/**/*.jpg
+!/media/catalog/**/*.jpeg
+!/media/catalog/**/*.png
+!/media/catalog/**/*.webp
 /public
 .DS_Store
 .log
