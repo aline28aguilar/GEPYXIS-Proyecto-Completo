@@ -11,7 +11,8 @@ extensions
 !extensions/resend
 !extensions/sendgrid
 !extensions/product_review
-/themes
+/themes/*
+!/themes/gepyxis/
 .idea/*
 .evershop
 .vscode
