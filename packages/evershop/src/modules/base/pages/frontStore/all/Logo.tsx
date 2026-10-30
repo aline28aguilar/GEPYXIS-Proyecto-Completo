@@ -82,7 +82,7 @@ export default function Logo({ setting }: LogoProps) {
 
 export const layout = {
   areaId: 'headerMiddleLeft',
-  sortOrder: 10
+  sortOrder: 0
 };
 
 export const query = `
