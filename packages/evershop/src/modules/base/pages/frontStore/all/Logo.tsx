@@ -1,3 +1,4 @@
+
 import React from 'react';
 
 interface LogoProps {
@@ -9,49 +10,54 @@ interface LogoProps {
   };
 }
 
-// Cap so an oversized upload doesn't ship a huge file. The endpoint never
-// upscales, so smaller logos are served at their real width.
 const MAX_LOGO_WIDTH = 768;
 
 export default function Logo({ setting }: LogoProps) {
-  // The logo is an admin setting (Store Setting → Branding); when unset, the
-  // EverShop mark below is shown. The image always goes through the `/images`
-  // endpoint (width-only, so the aspect ratio is preserved) re-encoded to WebP.
   const logo = setting?.logo;
-  // Real intrinsic dimensions, captured on upload: the <img> carries them so the
-  // browser knows the true aspect ratio (no distortion, no layout shift), and
-  // the endpoint is asked for the native width (capped, never upscaled) so it
-  // only ever scales down. Rendered size is capped with CSS — `w-auto` keeps the
-  // aspect ratio, `max-h-10` matches the fallback height — which a theme that
-  // ships its own Logo component or logo CSS can override.
+
   const imgWidth = Number(setting?.logoWidth) || undefined;
   const imgHeight = Number(setting?.logoHeight) || undefined;
-  const requestWidth = imgWidth ? Math.min(imgWidth, MAX_LOGO_WIDTH) : 320;
+
+  const requestWidth = imgWidth
+    ? Math.min(imgWidth, MAX_LOGO_WIDTH)
+    : 320;
+
   const optimizedSrc = logo
     ? `/images?src=${encodeURIComponent(logo)}&w=${requestWidth}&q=85&f=webp`
     : undefined;
-  const storeName = setting?.storeName || 'EverShop';
+
+  const storeName = setting?.storeName || 'GEPYXIS';
+
   return (
-    <div className="logo flex justify-center items-center">
+    <div className="logo flex justify-start items-center">
       {optimizedSrc && (
-        <a href="/" className="logo-icon" aria-label={`${storeName} – home`}>
+        <a
+          href="/"
+          className="logo-icon flex items-center"
+          aria-label={`${storeName} – home`}
+        >
           <img
             src={optimizedSrc}
             alt=""
             width={imgWidth}
             height={imgHeight}
-            className="max-h-10 w-auto max-w-full"
+            className="max-h-16 w-auto max-w-full"
           />
         </a>
       )}
+
       {!optimizedSrc && (
-        <a href="/" className="logo-icon" aria-label={`${storeName} – home`}>
+        <a
+          href="/"
+          className="logo-icon flex items-center"
+          aria-label={`${storeName} – home`}
+        >
           <svg
             width="128"
             height="146"
             viewBox="0 0 128 146"
             fill="none"
-            className="h-10 w-auto"
+            className="h-16 w-auto"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
           >
@@ -75,7 +81,7 @@ export default function Logo({ setting }: LogoProps) {
 }
 
 export const layout = {
-  areaId: 'headerMiddleCenter',
+  areaId: 'headerMiddleLeft',
   sortOrder: 10
 };
 
