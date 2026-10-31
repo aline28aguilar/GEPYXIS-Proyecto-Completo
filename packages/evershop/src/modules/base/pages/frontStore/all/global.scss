@@ -1,7 +1,6 @@
+
 @layer base {
-  /* The page's content column, in one place. Consumed by `.page-width` below
-   * and by any widget that has to rebuild the column after breaking out of it
-   * (see `modules/cms/components/Section.tsx`). */
+  /* Ancho general del contenido */
   :root {
     --page-max-width: 1200px;
     --page-gutter: 1rem;
@@ -14,8 +13,6 @@
   }
 
   body {
-    /* Re-skin (2026-07-10): 16px base + 1.5 line-height + token text color,
-     * matching the design reference (was 14px, line-height up to 2.0, #3a3a3a). */
     font-size: 1rem;
     line-height: 1.5;
     color: var(--foreground);
@@ -34,7 +31,7 @@
     }
   }
 
-  /* Heading scale — semibold, tight leading + tracking (reference-aligned). */
+  /* Estilos generales de títulos */
   h1,
   h2,
   h3,
@@ -52,26 +49,32 @@
     letter-spacing: -0.011em;
     color: var(--foreground);
   }
+
   h1,
   .h1 {
     font-size: 1.875rem;
   }
+
   h2,
   .h2 {
     font-size: 1.5rem;
   }
+
   h3,
   .h3 {
     font-size: 1.25rem;
   }
+
   h4,
   .h4 {
     font-size: 1.125rem;
   }
+
   h5,
   .h5 {
     font-size: 1rem;
   }
+
   h6,
   .h6 {
     font-size: 0.875rem;
@@ -82,6 +85,7 @@
     .h1 {
       font-size: 2.25rem;
     }
+
     h2,
     .h2 {
       font-size: 1.875rem;
@@ -96,37 +100,65 @@
     margin: 0 auto;
   }
 
-  /* Container — tighter gutter to match the reference (was 22px / 55px).
-   *
-   * The two numbers are published as custom properties because widgets need
-   * them too: the Section widget's "wide" mode breaks out to the viewport to
-   * paint a full-bleed background and then has to rebuild this exact column
-   * for its content, and "boxed" has to cap at this exact width. Reading them
-   * from here rather than copying the numbers is what keeps a theme that
-   * changes its page width from leaving those widgets behind.
-   *
-   * A theme overriding `.page-width` must set these rather than restate the
-   * numbers: a theme's GlobalCss REPLACES this file rather than extending it
-   * (both are the component key `all/GlobalCss`), so this :root block does not
-   * load in a themed store and the widgets fall back to the values above. */
+  /* Ancho y márgenes del contenido */
   .page-width {
     max-width: var(--page-max-width);
     margin: 0 auto;
     padding: 0 var(--page-gutter);
   }
 
+  /* Encabezado GEPYXIS */
+  .header {
+    background-color: #FFFFFF;
+
+    .header__middle__center a {
+      font-family: 'Inter', Arial, sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      color: #17365D;
+      transition: color 0.2s ease;
+    }
+
+    /* Sección actual del menú */
+    .header__middle__center a[aria-current='page'],
+    .header__middle__center a.active,
+    .header__middle__center a[aria-current='true'] {
+      color: #2878B8;
+    }
+
+    /* Búsqueda */
+    .header__middle__right {
+      font-family: 'Inter', Arial, sans-serif;
+
+      input {
+        font-family: 'Inter', Arial, sans-serif;
+        font-size: 14px;
+      }
+
+      /* Iconos */
+      svg {
+        stroke-width: 1.8;
+      }
+    }
+  }
+
+  /* Tablas */
   table {
     width: 100%;
     border-collapse: collapse;
+
     td,
     th {
       border: 1px solid var(--divider);
       padding: 0.313rem;
       text-align: left;
     }
+
     th {
       vertical-align: top;
     }
+
     &.listing {
       td,
       th {
@@ -134,6 +166,7 @@
         border-right: 0;
         padding: 0.625rem;
       }
+
       th {
         border: 0;
         padding-top: 1.25rem;
