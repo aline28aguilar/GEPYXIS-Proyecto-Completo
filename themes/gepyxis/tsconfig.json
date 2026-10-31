@@ -12,7 +12,7 @@
     "skipLibCheck": true,
     "declaration": true,
     "sourceMap": true,
-    "allowJs": true,
+    "allowJs": false,
     "checkJs": false,
     "jsx": "react",
     "outDir": "./dist",
