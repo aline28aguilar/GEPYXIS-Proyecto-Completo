@@ -38,7 +38,7 @@ const GepyxisHeader: React.FC = () => {
           object-fit: contain;
         }
 
-        /* Navegación */
+        /* NavegaciÃ³n */
         .header__middle__center {
           display: flex;
           flex: 1 1 auto;
@@ -84,7 +84,7 @@ const GepyxisHeader: React.FC = () => {
           content: "";
         }
 
-        /* Buscador nativo de EverShop con presentación de barra */
+        /* Buscador nativo de EverShop con presentaciÃ³n de barra */
         .header__middle__right {
           display: flex;
           flex: 0 1 auto;
@@ -224,7 +224,7 @@ const GepyxisHeader: React.FC = () => {
           }
         }
 
-        /* Móviles */
+        /* MÃ³viles */
         @media (max-width: 850px) {
           .header__middle {
             flex-wrap: wrap;
@@ -282,7 +282,7 @@ const GepyxisHeader: React.FC = () => {
         }
       `}</style>
 
-      <nav className="gepyxis-nav" aria-label="Navegación principal">
+      <nav className="gepyxis-nav" aria-label="NavegaciÃ³n principal">
         <a
           href="/"
           className="gepyxis-nav__link gepyxis-nav__link--active"
@@ -290,7 +290,7 @@ const GepyxisHeader: React.FC = () => {
           Inicio
         </a>
 
-        <a href="/catalog" className="gepyxis-nav__link">
+        <a href="/products" className="gepyxis-nav__link">
           Productos
         </a>
 
@@ -312,4 +312,3 @@ export const layout = {
 };
 
 export default GepyxisHeader;
-
