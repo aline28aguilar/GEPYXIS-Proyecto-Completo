@@ -116,15 +116,16 @@
       font-size: 15px;
       font-weight: 600;
       letter-spacing: 0.01em;
-      color: #17365D;
+      color: #17365D !important;
       transition: color 0.2s ease;
     }
 
     /* Sección actual del menú */
     .header__middle__center a[aria-current='page'],
+    .header__middle__center a[aria-current='true'],
     .header__middle__center a.active,
-    .header__middle__center a[aria-current='true'] {
-      color: #2878B8;
+    .header__middle__center a[data-active='true'] {
+      color: #2878B8 !important;
     }
 
     /* Búsqueda */
@@ -136,7 +137,6 @@
         font-size: 14px;
       }
 
-      /* Iconos */
       svg {
         stroke-width: 1.8;
       }
