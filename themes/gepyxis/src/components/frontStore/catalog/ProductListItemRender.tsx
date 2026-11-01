@@ -1,4 +1,4 @@
-﻿import { Image } from '@components/common/Image.js';
+import { Image } from '@components/common/Image.js';
 import { ProductNoThumbnail } from '@components/common/ProductNoThumbnail.js';
 import { ProductData } from '@components/frontStore/catalog/ProductContext.js';
 import { _ } from '@evershop/evershop/lib/locale/translate/_';
@@ -14,6 +14,8 @@ export const ProductListItemRender = ({
   imageWidth?: number;
   imageHeight?: number;
   layout?: 'grid' | 'list';
+  showAddToCart?: boolean;
+  customAddToCartRenderer?: (product: ProductData) => React.ReactNode;
 }) => {
   const hasDiscount =
     product.price.special &&

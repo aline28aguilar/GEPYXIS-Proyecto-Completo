@@ -21,7 +21,6 @@
     "allowArbitraryExtensions": true,
     "strictNullChecks": true,
     "baseUrl": ".",
-    "rootDir": "src",
     "paths": {
       "@components/*": [
         "./src/components/*",

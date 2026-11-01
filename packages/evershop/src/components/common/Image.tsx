@@ -128,7 +128,7 @@ export function buildImageSrcSet(
     filteredSizes.push(width);
   }
 
-  filteredSizes = [...new Set(filteredSizes)].sort((a, b) => a - b);
+  filteredSizes = [...new Set<number>(filteredSizes)].sort((a, b) => a - b);
 
   return filteredSizes
     .map((size) => {
