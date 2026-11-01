@@ -94,7 +94,7 @@ const Gepyxis: React.FC<GepyxisProps> = ({ collection }) => {
         body:has(.gepyxis-home) footer:not(.gepyxis-footer),
         body:has(.gepyxis-home) .footer:not(.gepyxis-footer),
         body:has(.gepyxis-home) [class*="footer-bottom"]:not(.gepyxis-footer-bottom){display:none!important}
-        .gepyxis-container{width:min(1240px,calc(100% - 40px));margin:0 auto}
+        .gepyxis-container{width:min(1440px,calc(100% - 64px));margin:0 auto}
         .gepyxis-hero{padding:10px 0 0}
         .gepyxis-slider{position:relative;overflow:hidden;min-height:300px;border-radius:15px;background:#eaf1ff;box-shadow:0 8px 25px rgba(9,48,112,.10)}
         .gepyxis-slide{position:relative;display:flex;align-items:center;min-height:300px;padding:42px 8%;isolation:isolate}
@@ -154,7 +154,16 @@ const Gepyxis: React.FC<GepyxisProps> = ({ collection }) => {
         .gepyxis-contact h2{margin:0 0 9px;color:#fff;font-size:clamp(22px,3vw,30px);font-weight:850}
         .gepyxis-contact p{max-width:650px;margin:0;color:#e1ebff;font-size:14px;line-height:1.6}
         .gepyxis-contact-link{flex:0 0 auto;padding:13px 23px;border-radius:30px;background:#fff;color:var(--blue);font-size:14px;font-weight:850;text-decoration:none}
-        .gepyxis-footer{margin-top:10px;padding:42px 0 18px;background:#071f49;color:#dce7fb}
+        .gepyxis-footer{
+  position:relative;
+  left:50%;
+  width:100vw;
+  margin-left:-50vw;
+  margin-top:10px;
+  padding:42px 0 18px;
+  background:#071f49;
+  color:#dce7fb;
+}
         .gepyxis-footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1.2fr;gap:30px}
         .gepyxis-footer h3{margin:0 0 15px;color:#fff;font-size:15px;font-weight:800}
         .gepyxis-footer p{margin:0;color:#c2d1e9;font-size:13px;line-height:1.75}
