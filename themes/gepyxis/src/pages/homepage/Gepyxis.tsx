@@ -21,12 +21,12 @@ interface GepyxisProps {
 }
 
 const categories = [
-  { icon: '▣', name: 'Laptops', description: 'Equipos para trabajar y estudiar' },
-  { icon: '▤', name: 'Computadoras', description: 'Tecnología para cada espacio' },
-  { icon: '⚙', name: 'Componentes', description: 'Mejora y personaliza tus equipos' },
-  { icon: '⌁', name: 'Redes', description: 'Conectividad y comunicación' },
-  { icon: '▰', name: 'Almacenamiento', description: 'Espacio para tu información' },
-  { icon: '♫', name: 'Accesorios', description: 'Complementos para tu tecnología' }
+  { name: 'Laptops', description: 'Equipos para trabajar y estudiar', image: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=900&q=85' },
+  { name: 'Computadoras', description: 'Tecnología para cada espacio', image: 'https://images.unsplash.com/photo-1593640408182-31c70c8268f5?auto=format&fit=crop&w=900&q=85' },
+  { name: 'Componentes', description: 'Mejora y personaliza tus equipos', image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=85' },
+  { name: 'Redes', description: 'Conectividad y comunicación', image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=900&q=85' },
+  { name: 'Almacenamiento', description: 'Espacio para tu información', image: 'https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&w=900&q=85' },
+  { name: 'Accesorios', description: 'Complementos para tu tecnología', image: 'https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&w=900&q=85' }
 ];
 
 const services = [
@@ -71,6 +71,10 @@ const slides = [
 const Gepyxis: React.FC<GepyxisProps> = ({ collection }) => {
   const products = collection?.products?.items ?? [];
   const [activeSlide, setActiveSlide] = useState(0);
+  const [activeBrand, setActiveBrand] = useState(0);
+  const visibleBrands = 3;
+  const previousBrands = () => setActiveBrand((current) => (current - 1 + brands.length) % brands.length);
+  const nextBrands = () => setActiveBrand((current) => (current + 1) % brands.length);
 
   useEffect(() => {
     const timer = window.setInterval(() => {
@@ -87,6 +91,9 @@ const Gepyxis: React.FC<GepyxisProps> = ({ collection }) => {
       <style>{`
         .gepyxis-home{--blue:#073fae;--navy:#082b67;--ink:#102b55;--muted:#65748b;color:var(--ink);background:#fff;font-family:inherit}
         .gepyxis-home *{box-sizing:border-box}
+        body:has(.gepyxis-home) footer:not(.gepyxis-footer),
+        body:has(.gepyxis-home) .footer:not(.gepyxis-footer),
+        body:has(.gepyxis-home) [class*="footer-bottom"]:not(.gepyxis-footer-bottom){display:none!important}
         .gepyxis-container{width:min(1240px,calc(100% - 40px));margin:0 auto}
         .gepyxis-hero{padding:10px 0 0}
         .gepyxis-slider{position:relative;overflow:hidden;min-height:300px;border-radius:15px;background:#eaf1ff;box-shadow:0 8px 25px rgba(9,48,112,.10)}
@@ -108,9 +115,12 @@ const Gepyxis: React.FC<GepyxisProps> = ({ collection }) => {
         .gepyxis-dot.is-active{width:25px;border-radius:8px;background:#fff}
         .gepyxis-brands{display:grid;grid-template-columns:205px 1fr;align-items:center;gap:20px;margin:24px 0 8px;padding:15px 18px;border:1px solid #e1e9f8;border-radius:14px;background:#fff}
         .gepyxis-brands-title{color:var(--blue);font-size:19px;font-weight:850;line-height:1.2}
-        .gepyxis-brand-list{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px}
-        .gepyxis-brand{display:grid;place-items:center;min-height:65px;padding:12px;border:1px solid #edf1f8;border-radius:10px;background:#fff}
+        .gepyxis-brand-carousel{display:grid;grid-template-columns:34px 1fr 34px;align-items:center;gap:10px;min-width:0}
+        .gepyxis-brand-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;min-width:0}
+        .gepyxis-brand{display:grid;place-items:center;min-height:65px;padding:12px;border:1px solid #edf1f8;border-radius:10px;background:#fff;min-width:0}
         .gepyxis-brand img{display:block;max-width:100%;width:auto;height:auto;max-height:42px;object-fit:contain}
+        .gepyxis-brand-name{color:#26364d;font-size:13px;font-weight:800;text-align:center}
+        .gepyxis-brand-arrow{display:grid;place-items:center;width:32px;height:32px;border:1px solid #dce6f5;border-radius:50%;background:#f7faff;color:var(--blue);font-size:20px;cursor:pointer}
         .gepyxis-section{padding:45px 0}.gepyxis-section--soft{background:#f5f8ff}
         .gepyxis-section-heading{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:24px}
         .gepyxis-eyebrow{display:block;margin-bottom:7px;color:#1260cf;font-size:11px;font-weight:850;letter-spacing:1.3px;text-transform:uppercase}
@@ -128,12 +138,13 @@ const Gepyxis: React.FC<GepyxisProps> = ({ collection }) => {
         .gepyxis-product-button{display:block;padding:11px 14px;border-radius:9px;background:var(--blue);color:#fff;font-size:13px;font-weight:750;text-align:center;text-decoration:none}
         .gepyxis-product-button:hover{background:#062f83;color:#fff}
         .gepyxis-empty-products{grid-column:1/-1;padding:35px;border:1px dashed #cbd5e1;border-radius:12px;color:var(--muted);text-align:center}
-        .gepyxis-categories{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
-        .gepyxis-category{display:flex;align-items:center;gap:16px;min-height:112px;padding:18px;border:1px solid #e3eaf6;border-radius:14px;background:#fff;text-decoration:none;box-shadow:0 4px 13px rgba(16,43,85,.035);transition:transform .2s,border-color .2s}
-        .gepyxis-category:hover{transform:translateY(-3px);border-color:#9bbcff}
-        .gepyxis-category-icon{display:grid;flex:0 0 55px;place-items:center;width:55px;height:55px;border-radius:14px;background:#eaf1ff;color:var(--blue);font-size:27px;font-weight:800}
-        .gepyxis-category h3{margin:0 0 5px;color:var(--ink);font-size:15px;font-weight:800}
-        .gepyxis-category p{margin:0;color:var(--muted);font-size:12px;line-height:1.5}
+        .gepyxis-categories{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+        .gepyxis-category{display:block;overflow:hidden;border:1px solid #e3eaf6;border-radius:14px;background:#fff;text-decoration:none;box-shadow:0 4px 13px rgba(16,43,85,.05);transition:transform .2s,border-color .2s}
+        .gepyxis-category:hover{transform:translateY(-4px);border-color:#9bbcff}
+        .gepyxis-category-image{display:block;width:100%;height:165px;object-fit:cover;background:#edf3fb}
+        .gepyxis-category-copy{padding:15px 17px 17px}
+        .gepyxis-category h3{margin:0 0 5px;color:var(--ink);font-size:16px;font-weight:800}
+        .gepyxis-category p{margin:0;color:var(--muted);font-size:13px;line-height:1.5}
         .gepyxis-services{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
         .gepyxis-service{padding:25px;border:1px solid #e3eaf6;border-radius:15px;background:#fff;box-shadow:0 5px 16px rgba(16,43,85,.04)}
         .gepyxis-service-icon{display:grid;place-items:center;width:52px;height:52px;margin-bottom:16px;border-radius:14px;background:#eaf1ff;color:var(--blue);font-size:25px}
@@ -152,7 +163,7 @@ const Gepyxis: React.FC<GepyxisProps> = ({ collection }) => {
         .gepyxis-footer-brand{margin-bottom:13px;color:#fff;font-size:25px;font-weight:900;letter-spacing:-.8px}
         .gepyxis-footer-bottom{display:flex;justify-content:space-between;gap:15px;margin-top:30px;padding-top:17px;border-top:1px solid rgba(255,255,255,.15);color:#aebfda;font-size:12px}
         @media(max-width:950px){.gepyxis-brand-list{grid-template-columns:repeat(3,minmax(0,1fr))}.gepyxis-brands{grid-template-columns:1fr}.gepyxis-products{grid-template-columns:repeat(2,minmax(0,1fr))}.gepyxis-categories{grid-template-columns:repeat(2,minmax(0,1fr))}.gepyxis-footer-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-        @media(max-width:650px){.gepyxis-container{width:min(100% - 28px,1240px)}.gepyxis-slider,.gepyxis-slide{min-height:330px}.gepyxis-slide{padding:35px 45px}.gepyxis-slide h1{font-size:29px}.gepyxis-slide p{font-size:13px}.gepyxis-slider-arrow{width:32px;height:32px;font-size:19px}.gepyxis-slider-arrow--prev{left:8px}.gepyxis-slider-arrow--next{right:8px}.gepyxis-brand-list{grid-template-columns:repeat(2,minmax(0,1fr))}.gepyxis-section{padding:34px 0}.gepyxis-section-heading{align-items:flex-start;flex-direction:column;gap:9px}.gepyxis-products{gap:11px}.gepyxis-product-image{height:150px;padding:11px}.gepyxis-product-info{padding:11px}.gepyxis-product-info h3{font-size:12px}.gepyxis-product-price{font-size:16px}.gepyxis-categories,.gepyxis-services{grid-template-columns:1fr}.gepyxis-contact{align-items:flex-start;flex-direction:column;padding:27px 22px}.gepyxis-footer-grid{grid-template-columns:1fr 1fr;gap:24px 16px}.gepyxis-footer-bottom{flex-direction:column}}
+        @media(max-width:650px){.gepyxis-container{width:min(100% - 28px,1240px)}.gepyxis-slider,.gepyxis-slide{min-height:330px}.gepyxis-slide{padding:35px 45px}.gepyxis-slide h1{font-size:29px}.gepyxis-slide p{font-size:13px}.gepyxis-slider-arrow{width:32px;height:32px;font-size:19px}.gepyxis-slider-arrow--prev{left:8px}.gepyxis-slider-arrow--next{right:8px}.gepyxis-brand-list{grid-template-columns:repeat(2,minmax(0,1fr))}.gepyxis-brand-carousel{grid-template-columns:28px 1fr 28px;gap:6px}.gepyxis-brand-list{grid-template-columns:repeat(2,minmax(0,1fr))}.gepyxis-category-image{height:145px}.gepyxis-section{padding:34px 0}.gepyxis-section-heading{align-items:flex-start;flex-direction:column;gap:9px}.gepyxis-products{gap:11px}.gepyxis-product-image{height:150px;padding:11px}.gepyxis-product-info{padding:11px}.gepyxis-product-info h3{font-size:12px}.gepyxis-product-price{font-size:16px}.gepyxis-categories,.gepyxis-services{grid-template-columns:1fr}.gepyxis-contact{align-items:flex-start;flex-direction:column;padding:27px 22px}.gepyxis-footer-grid{grid-template-columns:1fr 1fr;gap:24px 16px}.gepyxis-footer-bottom{flex-direction:column}}
         @media(prefers-reduced-motion:reduce){.gepyxis-home *{transition-duration:.01ms!important}}
       `}</style>
 
@@ -185,8 +196,17 @@ const Gepyxis: React.FC<GepyxisProps> = ({ collection }) => {
           </div>
           <section className="gepyxis-brands" aria-label="Marcas">
             <div className="gepyxis-brands-title">¡Encuentra las<br />mejores marcas!</div>
-            <div className="gepyxis-brand-list">
-              {brands.map((brand) => <div className={`gepyxis-brand gepyxis-brand--${brand.style}`} key={brand.name}><img src={brand.logo} alt={`Logotipo de ${brand.name}`} loading="lazy" /></div>)}
+            <div className="gepyxis-brand-carousel">
+              <button className="gepyxis-brand-arrow" type="button" onClick={previousBrands} aria-label="Marcas anteriores">‹</button>
+              <div className="gepyxis-brand-list">
+                {Array.from({ length: visibleBrands }, (_, offset) => brands[(activeBrand + offset) % brands.length]).map((brand) => (
+                  <div className={`gepyxis-brand gepyxis-brand--${brand.style}`} key={brand.name}>
+                    <img src={brand.logo} alt={`Logotipo de ${brand.name}`} loading="eager" onError={(event) => { event.currentTarget.style.display = 'none'; }} />
+                    <span className="gepyxis-brand-name">{brand.name}</span>
+                  </div>
+                ))}
+              </div>
+              <button className="gepyxis-brand-arrow" type="button" onClick={nextBrands} aria-label="Marcas siguientes">›</button>
             </div>
           </section>
         </div>
@@ -227,8 +247,8 @@ const Gepyxis: React.FC<GepyxisProps> = ({ collection }) => {
           <div className="gepyxis-categories">
             {categories.map((category) => (
               <a href="/products" className="gepyxis-category" key={category.name}>
-                <div className="gepyxis-category-icon" aria-hidden="true">{category.icon}</div>
-                <div><h3>{category.name}</h3><p>{category.description}</p></div>
+                <img className="gepyxis-category-image" src={category.image} alt={`Imagen de ${category.name}`} loading="lazy" />
+                <div className="gepyxis-category-copy"><h3>{category.name}</h3><p>{category.description}</p></div>
               </a>
             ))}
           </div>
