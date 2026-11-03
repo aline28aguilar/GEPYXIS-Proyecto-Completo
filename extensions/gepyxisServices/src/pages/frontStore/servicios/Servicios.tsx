@@ -1,0 +1,654 @@
+
+import React from 'react';
+
+const services = [
+  {
+    name: 'Soporte técnico',
+    category: 'ASISTENCIA TÉCNICA',
+    description: 'Diagnóstico, mantenimiento y solución de problemas para tus equipos de cómputo.',
+    image: 'https://images.unsplash.com/photo-1581092921461-eab62e97a780?auto=format&fit=crop&w=900&q=85',
+  },
+  {
+    name: 'Instalación y configuración',
+    category: 'INSTALACIÓN',
+    description: 'Instalación y configuración de equipos, programas y herramientas tecnológicas.',
+    image: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=900&q=85',
+  },
+  {
+    name: 'Instalación de redes',
+    category: 'REDES Y CONECTIVIDAD',
+    description: 'Soluciones de conectividad para mantener comunicados tus espacios de trabajo.',
+    image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=900&q=85',
+  },
+  {
+    name: 'Soluciones digitales',
+    category: 'SOLUCIONES EMPRESARIALES',
+    description: 'Alternativas tecnológicas para optimizar las actividades de tu negocio.',
+    image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=900&q=85',
+  },
+  {
+    name: 'Mantenimiento de equipos',
+    category: 'MANTENIMIENTO',
+    description: 'Revisión y mantenimiento preventivo para conservar tus equipos en buen estado.',
+    image: 'https://images.unsplash.com/photo-1591238372338-22d30c883a86?auto=format&fit=crop&w=900&q=85',
+  },
+  {
+    name: 'Asesoría tecnológica',
+    category: 'CONSULTORÍA',
+    description: 'Orientación para elegir equipos y soluciones de acuerdo con tus necesidades.',
+    image: 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=900&q=85',
+  },
+];
+
+const Servicios: React.FC = () => {
+  return (
+    <main className="gepyxis-services-page">
+      <style>{`
+        .gepyxis-services-page {
+          --blue: #075bea;
+          --navy: #082b67;
+          --ink: #102b55;
+          --muted: #65748b;
+          background: #fff;
+          color: var(--ink);
+          font-family: inherit;
+        }
+
+        .gepyxis-services-page * {
+          box-sizing: border-box;
+        }
+
+        .services-container {
+          width: min(1440px, calc(100% - 64px));
+          margin: 0 auto;
+        }
+
+        /* Banner principal */
+        .services-hero {
+          position: relative;
+          display: flex;
+          align-items: center;
+          min-height: 390px;
+          overflow: hidden;
+          background:
+            linear-gradient(90deg, rgba(3, 24, 59, .65), rgba(3, 39, 91, .25)),
+            url('/images/banner-gepyxis.png')
+            center / cover no-repeat;
+        }
+
+        .services-hero-content {
+          max-width: 720px;
+          padding: 75px 0;
+        }
+
+        .services-eyebrow {
+          display: block;
+          margin-bottom: 15px;
+          color: #a9ceff;
+          font-size: 12px;
+          font-weight: 850;
+          letter-spacing: 1.8px;
+        }
+
+        .services-hero h1 {
+          margin: 0 0 18px;
+          color: #fff;
+          font-size: clamp(35px, 5vw, 55px);
+          font-weight: 850;
+          line-height: 1.1;
+        }
+
+        .services-hero p {
+          max-width: 590px;
+          margin: 0 0 25px;
+          color: #e4edff;
+          font-size: 16px;
+          line-height: 1.8;
+        }
+
+        .services-hero-button {
+          display: inline-block;
+          padding: 13px 24px;
+          border-radius: 30px;
+          background: var(--blue);
+          color: #fff;
+          font-size: 14px;
+          font-weight: 800;
+          text-decoration: none;
+        }
+
+        .services-hero-button:hover {
+          background: #0049c7;
+        }
+
+        /* Introducción */
+        .services-intro {
+          padding: 65px 0 30px;
+          text-align: center;
+        }
+
+        .services-intro span {
+          color: var(--blue);
+          font-size: 12px;
+          font-weight: 850;
+          letter-spacing: 1.6px;
+          text-transform: uppercase;
+        }
+
+        .services-intro h2 {
+          margin: 12px 0;
+          color: var(--ink);
+          font-size: clamp(27px, 4vw, 36px);
+          font-weight: 850;
+        }
+
+        .services-intro p {
+          max-width: 680px;
+          margin: 0 auto;
+          color: var(--muted);
+          font-size: 15px;
+          line-height: 1.8;
+        }
+
+        /* Catálogo */
+        .services-catalog {
+          padding: 25px 0 75px;
+        }
+
+        .services-grid {
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: 24px;
+        }
+
+        .service-card {
+          overflow: hidden;
+          border: 1px solid #e5ebf5;
+          border-radius: 15px;
+          background: #fff;
+          box-shadow: 0 5px 18px rgba(16, 43, 85, .055);
+          transition: transform .2s, box-shadow .2s;
+        }
+
+        .service-card:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 13px 28px rgba(16, 43, 85, .12);
+        }
+
+        .service-card-image {
+          position: relative;
+          height: 205px;
+          overflow: hidden;
+          background: #edf3fb;
+        }
+
+        .service-card-image img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: transform .3s;
+        }
+
+        .service-card:hover .service-card-image img {
+          transform: scale(1.04);
+        }
+
+        .service-card-category {
+          position: absolute;
+          bottom: 13px;
+          left: 13px;
+          padding: 7px 11px;
+          border-radius: 20px;
+          background: rgba(255,255,255,.95);
+          color: var(--blue);
+          font-size: 10px;
+          font-weight: 850;
+          letter-spacing: .5px;
+        }
+
+        .service-card-content {
+          padding: 21px;
+        }
+
+        .service-card h3 {
+          margin: 0 0 10px;
+          color: var(--ink);
+          font-size: 19px;
+          font-weight: 800;
+        }
+
+        .service-card p {
+          min-height: 72px;
+          margin: 0 0 20px;
+          color: var(--muted);
+          font-size: 13px;
+          line-height: 1.8;
+        }
+
+        .service-card-footer {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 10px;
+          padding-top: 16px;
+          border-top: 1px solid #edf1f7;
+        }
+
+        .service-price {
+          color: var(--blue);
+          font-size: 13px;
+          font-weight: 850;
+        }
+
+        .service-quote-button {
+          display: inline-block;
+          padding: 10px 14px;
+          border-radius: 8px;
+          background: var(--blue);
+          color: #fff;
+          font-size: 12px;
+          font-weight: 800;
+          text-decoration: none;
+          white-space: nowrap;
+        }
+
+        .service-quote-button:hover {
+          background: #0049c7;
+        }
+
+        /* Ventajas */
+        .services-benefits {
+          padding: 65px 0;
+          background: #f5f8ff;
+        }
+
+        .services-benefits-grid {
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: 25px;
+        }
+
+        .services-benefit {
+          padding: 22px;
+          text-align: center;
+        }
+
+        .services-benefit-icon {
+          display: grid;
+          place-items: center;
+          width: 54px;
+          height: 54px;
+          margin: 0 auto 15px;
+          border-radius: 15px;
+          background: #e3edff;
+          color: var(--blue);
+          font-size: 24px;
+        }
+
+        .services-benefit h3 {
+          margin: 0 0 9px;
+          color: var(--ink);
+          font-size: 17px;
+          font-weight: 800;
+        }
+
+        .services-benefit p {
+          margin: 0;
+          color: var(--muted);
+          font-size: 13px;
+          line-height: 1.7;
+        }
+
+        /* Banner de contacto */
+        .services-contact-section {
+          padding: 65px 0;
+        }
+
+        .services-contact {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 25px;
+          padding: 38px;
+          border-radius: 17px;
+          background: linear-gradient(110deg, #082b67, #075bea);
+        }
+
+        .services-contact h2 {
+          margin: 0 0 10px;
+          color: #fff;
+          font-size: clamp(23px, 3vw, 31px);
+          font-weight: 850;
+        }
+
+        .services-contact p {
+          max-width: 650px;
+          margin: 0;
+          color: #e2ecff;
+          font-size: 14px;
+          line-height: 1.7;
+        }
+
+        .services-contact a {
+          flex-shrink: 0;
+          padding: 14px 24px;
+          border-radius: 30px;
+          background: #fff;
+          color: var(--blue);
+          font-size: 14px;
+          font-weight: 850;
+          text-decoration: none;
+        }
+
+        /* Footer GEPYXIS */
+        .gepyxis-services-footer {
+          position: relative;
+          left: 50%;
+          width: 100vw;
+          margin-left: -50vw;
+          padding: 48px 0 20px;
+          background: #071f49;
+          color: #dce7fb;
+        }
+
+        .gepyxis-services-footer-grid {
+          display: grid;
+          grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+          gap: 35px;
+        }
+
+        .gepyxis-services-footer h3 {
+          margin: 0 0 18px;
+          color: #fff;
+          font-size: 15px;
+          font-weight: 800;
+        }
+
+        .gepyxis-services-footer p {
+          margin: 0;
+          color: #c2d1e9;
+          font-size: 13px;
+          line-height: 1.8;
+        }
+
+        .gepyxis-services-footer a {
+          display: block;
+          width: fit-content;
+          margin: 0 0 12px;
+          color: #c2d1e9;
+          font-size: 13px;
+          text-decoration: none;
+          transition: color .2s;
+        }
+
+        .gepyxis-services-footer a:hover {
+          color: #fff;
+          text-decoration: underline;
+        }
+
+        .gepyxis-services-footer-brand {
+          display: block;
+          width: 155px;
+          height: auto;
+          max-height: 65px;
+          margin-bottom: 16px;
+          object-fit: contain;
+          object-position: left center;
+        }
+
+        .gepyxis-services-footer-bottom {
+          display: flex;
+          justify-content: space-between;
+          gap: 15px;
+          margin-top: 35px;
+          padding-top: 20px;
+          border-top: 1px solid rgba(255,255,255,.15);
+          color: #aebfda;
+          font-size: 12px;
+        }
+
+        @media(max-width: 950px) {
+          .services-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+          }
+
+          .gepyxis-services-footer-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+          }
+        }
+
+        @media(max-width: 650px) {
+          .services-container {
+            width: calc(100% - 30px);
+          }
+
+          .services-hero {
+            min-height: 340px;
+          }
+
+          .services-hero-content {
+            padding: 55px 0;
+          }
+
+          .services-grid,
+          .services-benefits-grid {
+            grid-template-columns: 1fr;
+          }
+
+          .services-intro {
+            padding-top: 45px;
+          }
+
+          .services-contact {
+            align-items: flex-start;
+            flex-direction: column;
+            padding: 28px 23px;
+          }
+
+          .gepyxis-services-footer {
+            padding: 38px 0 18px;
+          }
+
+          .gepyxis-services-footer-grid {
+            grid-template-columns: 1fr 1fr;
+            gap: 28px 18px;
+          }
+
+          .gepyxis-services-footer-bottom {
+            flex-direction: column;
+          }
+        }
+
+        @media(max-width: 380px) {
+          .gepyxis-services-footer-grid {
+            grid-template-columns: 1fr;
+          }
+        }
+
+        @media(prefers-reduced-motion: reduce) {
+          .gepyxis-services-page * {
+            transition-duration: .01ms !important;
+          }
+        }
+      `}</style>
+
+      {/* Banner principal */}
+      <section className="services-hero">
+        <div className="services-container">
+          <div className="services-hero-content">
+            <span className="services-eyebrow">
+              GEPYXIS · TECNOLOGÍA Y SOLUCIONES
+            </span>
+            <h1>Soluciones tecnológicas para impulsar tu negocio</h1>
+            <p>
+              Descubre nuestros servicios de asistencia, instalación y
+              soluciones digitales. Estamos para ayudarte a encontrar lo que
+              tu proyecto necesita.
+            </p>
+            <a href="#catalogo-servicios" className="services-hero-button">
+              Explorar servicios →
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Introducción */}
+      <section className="services-intro">
+        <div className="services-container">
+          <span>Conoce lo que hacemos</span>
+          <h2>Nuestro catálogo de servicios</h2>
+          <p>
+            Ponemos a tu alcance diferentes soluciones tecnológicas para
+            acompañarte en tus actividades personales y empresariales.
+          </p>
+        </div>
+      </section>
+
+      {/* Catálogo */}
+      <section className="services-catalog" id="catalogo-servicios">
+        <div className="services-container">
+          <div className="services-grid">
+            {services.map((service) => (
+              <article className="service-card" key={service.name}>
+                <div className="service-card-image">
+                  <img
+                    src={service.image}
+                    alt={service.name}
+                    loading="lazy"
+                  />
+                  <span className="service-card-category">
+                    {service.category}
+                  </span>
+                </div>
+
+                <div className="service-card-content">
+                  <h3>{service.name}</h3>
+                  <p>{service.description}</p>
+
+                  <div className="service-card-footer">
+                    <span className="service-price">
+                      Cotización personalizada
+                    </span>
+                    <a href="/contacto" className="service-quote-button">
+                      Solicitar →
+                    </a>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Ventajas */}
+      <section className="services-benefits">
+        <div className="services-container">
+          <div className="services-intro" style={{ padding: '0 0 30px' }}>
+            <span>La experiencia GEPYXIS</span>
+            <h2>¿Por qué elegirnos?</h2>
+            <p>
+              Buscamos ofrecer alternativas tecnológicas que se adapten a
+              cada necesidad.
+            </p>
+          </div>
+
+          <div className="services-benefits-grid">
+            <article className="services-benefit">
+              <div className="services-benefit-icon">✦</div>
+              <h3>Atención personalizada</h3>
+              <p>Soluciones de acuerdo con las necesidades de cada proyecto.</p>
+            </article>
+
+            <article className="services-benefit">
+              <div className="services-benefit-icon">⚙</div>
+              <h3>Soluciones tecnológicas</h3>
+              <p>Opciones para mejorar tus equipos, procesos y espacios.</p>
+            </article>
+
+            <article className="services-benefit">
+              <div className="services-benefit-icon">⌘</div>
+              <h3>Acompañamiento</h3>
+              <p>Orientación para encontrar la alternativa que necesitas.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      {/* Contacto */}
+      <section className="services-contact-section">
+        <div className="services-container">
+          <div className="services-contact">
+            <div>
+              <h2>¿Tienes un proyecto en mente?</h2>
+              <p>
+                Cuéntanos qué necesitas y conoce las opciones que GEPYXIS
+                tiene para ti.
+              </p>
+            </div>
+            <a href="/contacto">Contáctanos →</a>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="gepyxis-services-footer">
+        <div className="services-container">
+          <div className="gepyxis-services-footer-grid">
+            <div>
+              <img
+                className="gepyxis-services-footer-brand"
+                src="/images/logogepyxis.jpg"
+                alt="GEPYXIS"
+              />
+              <p>
+                Tecnología, productos y soluciones para acompañar tus
+                proyectos y las necesidades de tu negocio.
+              </p>
+            </div>
+
+            <div>
+              <h3>Explora</h3>
+              <a href="/">Inicio</a>
+              <a href="/products">Productos</a>
+              <a href="/servicios">Servicios</a>
+              <a href="/contacto">Contacto</a>
+            </div>
+
+            <div>
+              <h3>Categorías</h3>
+              <a href="/products">Laptops y computadoras</a>
+              <a href="/products">Componentes</a>
+              <a href="/products">Redes</a>
+              <a href="/products">Accesorios</a>
+            </div>
+
+            <div>
+              <h3>Atención</h3>
+              <p>
+                ¿Tienes dudas o necesitas orientación? Ponte en contacto
+                con nuestro equipo.
+              </p>
+              <a href="mailto:contacto@gepyxis.mx">
+                contacto@gepyxis.mx
+              </a>
+            </div>
+          </div>
+
+          <div className="gepyxis-services-footer-bottom">
+            <span>
+              © {new Date().getFullYear()} GEPYXIS. Todos los derechos reservados.
+            </span>
+            <span>Soluciones tecnológicas para ti y tu empresa.</span>
+          </div>
+        </div>
+      </footer>
+    </main>
+  );
+};
+
+export const layout = {
+  areaId: 'content',
+  sortOrder: 10,
+};
+
+export default Servicios;

@@ -1,0 +1,5 @@
+{
+  "path": "/servicios",
+  "methods": ["GET"],
+  "name": "Servicios GEPYXIS"
+}

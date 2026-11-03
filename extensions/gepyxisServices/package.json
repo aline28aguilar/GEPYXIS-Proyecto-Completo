@@ -1,0 +1,9 @@
+{
+  "name": "gepyxisServices",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "tsc && copyfiles -u 1 \"src/**/*.json\" dist"
+  }
+}

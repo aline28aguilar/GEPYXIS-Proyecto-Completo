@@ -1,5 +1,13 @@
 {
   "system": {
-    "theme": "gepyxis"
+    "theme": "gepyxis",
+    "extensions": [
+      {
+        "name": "gepyxisServices",
+        "resolve": "extensions/gepyxisServices",
+        "enabled": true,
+        "priority": 10
+      }
+    ]
   }
 }
