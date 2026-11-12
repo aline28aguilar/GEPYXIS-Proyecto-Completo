@@ -1,0 +1,13 @@
+import React from 'react';
+import { RegisterOptions, FieldPath, FieldValues } from 'react-hook-form';
+interface TextareaFieldProps<T extends FieldValues = FieldValues> extends Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, 'name'> {
+    name: FieldPath<T>;
+    label?: string;
+    error?: string;
+    helperText?: string;
+    required?: boolean;
+    validation?: RegisterOptions<T>;
+    wrapperClassName?: string;
+}
+export declare function TextareaField<T extends FieldValues = FieldValues>({ name, label, error, helperText, wrapperClassName, required, validation, className, rows, defaultValue, ...props }: TextareaFieldProps<T>): React.JSX.Element;
+export {};

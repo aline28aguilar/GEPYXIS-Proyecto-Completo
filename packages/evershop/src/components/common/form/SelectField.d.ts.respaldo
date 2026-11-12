@@ -1,0 +1,25 @@
+import React from 'react';
+import { RegisterOptions, FieldPath, FieldValues } from 'react-hook-form';
+interface SelectOption {
+    value: string | number;
+    label: string;
+    disabled?: boolean;
+}
+interface SelectFieldProps<T extends FieldValues = FieldValues> {
+    name: FieldPath<T>;
+    label?: string;
+    error?: string;
+    helperText?: string;
+    required?: boolean;
+    validation?: RegisterOptions<T>;
+    options: SelectOption[];
+    placeholder?: string;
+    wrapperClassName?: string;
+    className?: string;
+    disabled?: boolean;
+    defaultValue?: string | number;
+    id?: string;
+    onChange?: (value: string | number) => void;
+}
+export declare function SelectField<T extends FieldValues = FieldValues>({ name, label, error, helperText, required, validation, options, placeholder, wrapperClassName, className, defaultValue, disabled, id, onChange: onChangeCallback }: SelectFieldProps<T>): React.JSX.Element;
+export {};

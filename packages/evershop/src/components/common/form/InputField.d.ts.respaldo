@@ -1,0 +1,15 @@
+import React from 'react';
+import { RegisterOptions, FieldPath, FieldValues } from 'react-hook-form';
+interface InputFieldProps<T extends FieldValues = FieldValues> extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'name'> {
+    name: FieldPath<T>;
+    label?: string;
+    error?: string;
+    helperText?: string;
+    required?: boolean;
+    validation?: RegisterOptions<T>;
+    wrapperClassName?: string;
+    prefixIcon?: React.ReactNode;
+    suffixIcon?: React.ReactNode;
+}
+export declare function InputField<T extends FieldValues = FieldValues>({ name, label, error, helperText, required, validation, wrapperClassName, className, type, prefixIcon, suffixIcon, defaultValue, ...props }: InputFieldProps<T>): React.JSX.Element;
+export {};

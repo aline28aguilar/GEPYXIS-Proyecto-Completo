@@ -1,46 +1,27 @@
 
 import React from 'react';
 
-const services = [
-  {
-    name: 'Soporte técnico',
-    category: 'ASISTENCIA TÉCNICA',
-    description: 'Diagnóstico, mantenimiento y solución de problemas para tus equipos de cómputo.',
-    image: 'https://images.unsplash.com/photo-1581092921461-eab62e97a780?auto=format&fit=crop&w=900&q=85',
-  },
-  {
-    name: 'Instalación y configuración',
-    category: 'INSTALACIÓN',
-    description: 'Instalación y configuración de equipos, programas y herramientas tecnológicas.',
-    image: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=900&q=85',
-  },
-  {
-    name: 'Instalación de redes',
-    category: 'REDES Y CONECTIVIDAD',
-    description: 'Soluciones de conectividad para mantener comunicados tus espacios de trabajo.',
-    image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=900&q=85',
-  },
-  {
-    name: 'Soluciones digitales',
-    category: 'SOLUCIONES EMPRESARIALES',
-    description: 'Alternativas tecnológicas para optimizar las actividades de tu negocio.',
-    image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=900&q=85',
-  },
-  {
-    name: 'Mantenimiento de equipos',
-    category: 'MANTENIMIENTO',
-    description: 'Revisión y mantenimiento preventivo para conservar tus equipos en buen estado.',
-    image: 'https://images.unsplash.com/photo-1591238372338-22d30c883a86?auto=format&fit=crop&w=900&q=85',
-  },
-  {
-    name: 'Asesoría tecnológica',
-    category: 'CONSULTORÍA',
-    description: 'Orientación para elegir equipos y soluciones de acuerdo con tus necesidades.',
-    image: 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=900&q=85',
-  },
-];
 
-const Servicios: React.FC = () => {
+
+type ServicioPublico = {
+  serviceId: number;
+  uuid: string;
+  name: string;
+  description: string;
+  image: string | null;
+  priceType: 'fixed' | 'starting' | 'quote';
+  price: number | null;
+  status: boolean;
+};
+
+type ServiciosProps = {
+  services?: {
+    items?: ServicioPublico[] | null;
+    total?: number;
+  } | null;
+};
+
+const Servicios: React.FC<ServiciosProps> = ({ services: serviciosData }) => {
   return (
     <main className="gepyxis-services-page">
       <style>{`
@@ -407,6 +388,11 @@ const Servicios: React.FC = () => {
           font-size: 12px;
         }
 
+        body:has(.gepyxis-services-footer) footer:not(.gepyxis-services-footer),
+        body:has(.gepyxis-services-footer) .footer:not(.gepyxis-services-footer),
+        body:has(.gepyxis-services-footer) [class*="footer-bottom"]:not(.gepyxis-services-footer-bottom) {
+          display: none !important;
+        }
         @media(max-width: 950px) {
           .services-grid {
             grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -507,36 +493,67 @@ const Servicios: React.FC = () => {
       {/* Catálogo */}
       <section className="services-catalog" id="catalogo-servicios">
         <div className="services-container">
-          <div className="services-grid">
-            {services.map((service) => (
-              <article className="service-card" key={service.name}>
-                <div className="service-card-image">
-                  <img
-                    src={service.image}
-                    alt={service.name}
-                    loading="lazy"
-                  />
-                  <span className="service-card-category">
-                    {service.category}
-                  </span>
-                </div>
-
-                <div className="service-card-content">
-                  <h3>{service.name}</h3>
-                  <p>{service.description}</p>
-
-                  <div className="service-card-footer">
-                    <span className="service-price">
-                      Cotización personalizada
-                    </span>
-                    <a href="/contacto" className="service-quote-button">
-                      Solicitar →
-                    </a>
+          {(serviciosData?.items?.length ?? 0) > 0 ? (
+            <div className="services-grid">
+              {serviciosData!.items!.map((service) => (
+                <article className="service-card" key={service.serviceId}>
+                  <div className="service-card-image">
+                    {service.image ? (
+                      <img
+                        src={service.image}
+                        alt={service.name}
+                        loading="lazy"
+                      />
+                    ) : (
+                      <div
+                        style={{
+                          display: 'grid',
+                          placeItems: 'center',
+                          width: '100%',
+                          height: '100%',
+                          color: '#075bea',
+                          fontWeight: 800,
+                          fontSize: '20px'
+                        }}
+                      >
+                        GEPYXIS
+                      </div>
+                    )}
                   </div>
-                </div>
-              </article>
-            ))}
-          </div>
+
+                  <div className="service-card-content">
+                    <h3><a href={`/servicios/${service.uuid}`}>{service.name}</a></h3>
+
+                    <div className="service-card-footer">
+                      <span className="service-price">
+                        {service.priceType === 'fixed' && service.price !== null
+                          ? `$${service.price.toFixed(2)}`
+                          : service.priceType === 'starting' && service.price !== null
+                            ? `Desde $${service.price.toFixed(2)}`
+                            : 'Cotización'}
+                      </span>
+                      <a
+  href={`/contacto?servicio=${service.serviceId}&tipo=solicitud`}
+  className="service-quote-button"
+>
+  Solicitar →
+</a>
+<a
+  href={`/contacto?servicio=${service.serviceId}&tipo=cotizacion`}
+  className="service-quote-button"
+>
+  Cotizar →
+</a>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          ) : (
+            <p style={{ textAlign: 'center', color: '#65748b', padding: '30px 0' }}>
+              Actualmente no hay servicios disponibles.
+            </p>
+          )}
         </div>
       </section>
 
@@ -652,3 +669,25 @@ export const layout = {
 };
 
 export default Servicios;
+
+export const query = `
+query Query {
+  services: services(filters: [
+    { key: "status", operation: eq, value: "true" },
+    { key: "limit", operation: eq, value: "200" },
+    { key: "page", operation: eq, value: "1" }
+  ]) {
+    items {
+      serviceId
+      uuid
+      name
+      description
+      image
+      priceType
+      price
+      status
+    }
+    total
+    currentPage
+  }
+}`;

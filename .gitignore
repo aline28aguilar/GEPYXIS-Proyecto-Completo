@@ -42,7 +42,8 @@ playwright/.cache
 .prettierrc
 mysqlToPostgres.js
 /docs
-extensions
+extensions/*
+!extensions/gepyxisServices/
 /specifications
 /wiki
 /design-kit
@@ -59,3 +60,8 @@ jmeter.log
 stress_test.py
 theme-lab
 asset-library
+
+# Archivos privados y registros demasiado grandes
+.env*
+!.env.example
+error-compilacion.txt

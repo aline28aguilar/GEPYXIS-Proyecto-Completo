@@ -1,0 +1,58 @@
+import { Tooltip } from '@components/common/form/Tooltip.js';
+import { getNestedError } from '@components/common/form/utils/getNestedError.js';
+import { useScopedFieldName } from '@components/common/page-builder/WidgetSettingsScope.js';
+import { Field, FieldError, FieldLabel } from '@components/common/ui/Field.js';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@components/common/ui/Select.js';
+import { _ } from '@evershop/evershop/lib/locale/translate/_';
+import React from 'react';
+import { useFormContext, Controller } from 'react-hook-form';
+export function SelectField({ name, label, error, helperText, required, validation, options, placeholder, wrapperClassName, className, defaultValue, disabled, id, onChange: onChangeCallback }) {
+    const { control, formState: { errors } } = useFormContext();
+    const resolvedName = useScopedFieldName(name);
+    const fieldError = getNestedError(resolvedName, errors, error);
+    const fieldId = id || `field-${resolvedName}`;
+    const hasDefaultValue = defaultValue !== undefined && defaultValue !== null && defaultValue !== '';
+    const validationRules = {
+        ...validation,
+        ...(required &&
+            !(validation === null || validation === void 0 ? void 0 : validation.required) && {
+            required: {
+                value: true,
+                message: _('${field} is required', { field: label || name })
+            },
+            validate: {
+                ...validation === null || validation === void 0 ? void 0 : validation.validate,
+                notEmpty: (value) => {
+                    if (required &&
+                        (value === '' || value === null || value === undefined)) {
+                        return _('${field} is required', { field: label || name });
+                    }
+                    return true;
+                }
+            }
+        })
+    };
+    return (React.createElement(Field, { "data-invalid": fieldError ? 'true' : 'false', className: wrapperClassName },
+        label && (React.createElement(FieldLabel, { htmlFor: fieldId },
+            React.createElement(React.Fragment, null,
+                label,
+                required && React.createElement("span", { className: "text-destructive" }, "*"),
+                helperText && React.createElement(Tooltip, { content: helperText, position: "top" })))),
+        React.createElement(Controller, { name: resolvedName, control: control, rules: validationRules, defaultValue: hasDefaultValue ? defaultValue : '', render: ({ field }) => {
+                var _a, _b;
+                return (React.createElement(Select, { value: (_a = options.find((o) => o.value === field.value)) !== null && _a !== void 0 ? _a : null, onValueChange: (value) => {
+                        const newValue = (value === null || value === void 0 ? void 0 : value.value) === '' ? '' : value === null || value === void 0 ? void 0 : value.value;
+                        field.onChange(newValue);
+                        if (onChangeCallback && value !== null) {
+                            onChangeCallback(value.value);
+                        }
+                    }, disabled: disabled },
+                    React.createElement(SelectTrigger, { id: fieldId, className: className, "aria-invalid": fieldError !== undefined ? 'true' : 'false', "aria-describedby": fieldError !== undefined ? `${fieldId}-error` : undefined },
+                        React.createElement(SelectValue, null, ((_b = options.find((o) => String(o.value) === String(field.value))) === null || _b === void 0 ? void 0 : _b.label) || placeholder)),
+                    React.createElement(SelectContent, null,
+                        placeholder && (React.createElement(SelectItem, { value: "", disabled: true }, placeholder)),
+                        options.map((option) => (React.createElement(SelectItem, { key: option.value, value: option, disabled: option.disabled }, option.label))))));
+            } }),
+        fieldError && (React.createElement(FieldError, { id: `${fieldId}-error` }, fieldError))));
+}
+//# sourceMappingURL=SelectField.js.map

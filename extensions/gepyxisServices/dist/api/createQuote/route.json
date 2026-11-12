@@ -1,0 +1,5 @@
+{
+  "methods": ["POST"],
+  "path": "/services/quote",
+  "access": "public"
+}

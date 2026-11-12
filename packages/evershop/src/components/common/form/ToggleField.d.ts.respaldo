@@ -1,0 +1,21 @@
+import React from 'react';
+import { FieldPath, FieldValues, RegisterOptions } from 'react-hook-form';
+interface ToggleFieldProps<T extends FieldValues = FieldValues> {
+    name: FieldPath<T>;
+    label?: string;
+    error?: string;
+    helperText?: string;
+    required?: boolean;
+    validation?: RegisterOptions<T>;
+    wrapperClassName?: string;
+    disabled?: boolean;
+    defaultValue?: boolean | 0 | 1;
+    trueValue?: boolean | 1;
+    falseValue?: boolean | 0;
+    trueLabel?: string;
+    falseLabel?: string;
+    size?: 'sm' | 'default';
+    onChange?: (value: boolean | 0 | 1) => void;
+}
+export declare function ToggleField<T extends FieldValues = FieldValues>({ name, label, error, helperText, required, validation, wrapperClassName, disabled, defaultValue, trueValue, falseValue, trueLabel, falseLabel, size, onChange }: ToggleFieldProps<T>): React.JSX.Element;
+export {};

@@ -1,0 +1,25 @@
+type ServiceQuote {
+  quoteId: Int!
+  uuid: String
+  serviceId: Int
+  serviceName: String!
+  customerName: String!
+  email: String!
+  phone: String!
+  description: String!
+  status: String!
+  createdAt: String
+  updatedAt: String
+}
+
+type ServiceQuoteCollection {
+  items: [ServiceQuote]
+  currentPage: Int!
+  total: Int!
+  currentFilters: [Filter]
+}
+
+extend type Query {
+  serviceQuotes(filters: [FilterInput]): ServiceQuoteCollection
+  serviceQuote(id: Int!): ServiceQuote
+}

@@ -2,7 +2,11 @@
   "compilerOptions": {
     "module": "NodeNext",
     "target": "ES2018",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
@@ -19,9 +23,12 @@
     "baseUrl": ".",
     "rootDir": "./src",
     "paths": {
-      "@components/*": ["./src/components/*"],
-      "@evershop/evershop/*": ["../../packages/evershop/src/*"]
+      "@components/*": [
+        "./src/components/*"
+      ]
     }
   },
-  "include": ["src"]
+  "include": [
+    "src"
+  ]
 }

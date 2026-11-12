@@ -4,6 +4,6 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "tsc && copyfiles -u 1 \"src/**/*.json\" dist"
+    "build": "tsc && copyfiles -u 1 \"src/**/*.json\" \"src/**/*.graphql\" dist"
   }
 }

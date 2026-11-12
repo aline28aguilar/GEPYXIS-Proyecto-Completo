@@ -1,0 +1,28 @@
+import { Button } from '@components/common/ui/Button.js';
+import React from 'react';
+import { UseFormProps, FieldValues, SubmitHandler, UseFormReturn } from 'react-hook-form';
+interface FormProps<T extends FieldValues = FieldValues> extends Omit<React.FormHTMLAttributes<HTMLFormElement>, 'onSubmit' | 'onError'> {
+    form?: UseFormReturn<T>;
+    action?: string;
+    method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
+    formOptions?: UseFormProps<T>;
+    onSubmit?: SubmitHandler<T>;
+    onSuccess?: (response: any, data: T) => void;
+    onError?: (error: string, data: T) => void;
+    successMessage?: string;
+    errorMessage?: string;
+    submitBtn?: boolean;
+    submitBtnText?: string;
+    /**
+     * Size of the submit button (the shared Button's sizes). A form that sits inside
+     * a widget passes `lg` so its button matches the 40px call-to-action buttons
+     * around it; admin forms keep the default.
+     */
+    submitBtnSize?: React.ComponentProps<typeof Button>['size'];
+    loading?: boolean;
+    children: React.ReactNode;
+}
+export declare function Form<T extends FieldValues = FieldValues>({ form: externalForm, action, method, formOptions, onSubmit, onSuccess, onError, successMessage, errorMessage, submitBtn, submitBtnText, submitBtnSize, loading, children, className, noValidate, ...props }: FormProps<T>): React.JSX.Element;
+export { useFormContext } from 'react-hook-form';
+export { Controller } from 'react-hook-form';
+export type { Control, FieldPath, FieldValues } from 'react-hook-form';

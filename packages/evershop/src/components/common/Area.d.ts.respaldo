@@ -1,0 +1,54 @@
+import React from 'react';
+interface Component {
+    id?: string;
+    sortOrder?: number;
+    props?: Record<string, any>;
+    component: {
+        default: React.ElementType | React.ReactNode;
+    };
+    /**
+     * Page builder metadata. Set when this entry is a widget instance — used
+     * by the iframe chrome to identify the widget for selection / delete /
+     * inline-edit. Undefined for regular layout components.
+     */
+    _widgetMeta?: {
+        uuid: string;
+        type: string;
+        settings: Record<string, unknown>;
+    };
+}
+type AreaID = string;
+type ComponentID = string;
+interface Components {
+    [key: AreaID]: {
+        [key: ComponentID]: Component;
+    };
+}
+export declare function setAreaComponents(routeId: string, map: Components): void;
+export declare function getAreaComponents(routeId: string | undefined): Components;
+interface AreaProps {
+    className?: string;
+    coreComponents?: Component[];
+    id: string;
+    noOuter?: boolean;
+    wrapper?: React.ReactNode | string;
+    wrapperProps?: Record<string, any>;
+    components?: Components;
+    /**
+     * True for areas that appear on every page (e.g. header, footer).
+     * Informational only — used by the page-builder admin to surface
+     * "this area appears on every page" warnings when editing.
+     */
+    isGlobal?: boolean;
+    /**
+     * Opt this area into page-builder editing. When false (the default),
+     * the page builder UI does not expose this area as a drop target,
+     * even if it is rendered in the SSR'd preview. Protects layout-only
+     * or system-message areas from accidental edits.
+     */
+    editableInPageBuilder?: boolean;
+    [key: string]: unknown;
+}
+declare function Area(props: AreaProps): React.JSX.Element;
+export { Area };
+export default Area;

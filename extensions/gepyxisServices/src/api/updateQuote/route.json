@@ -1,0 +1,5 @@
+{
+  "methods": ["PATCH"],
+  "path": "/service-quotes/:id",
+  "access": "private"
+}
